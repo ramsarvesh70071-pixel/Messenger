@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "Pulse",
+    "slug": "pulse-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0a0e17",
+    "splash": {
+      "backgroundColor": "#0a0e17"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pulse.chat"
+    },
+    "android": {
+      "package": "com.pulse.chat"
+    },
+    "plugins": [
+      "expo-font"
+    ]
+  }
+}

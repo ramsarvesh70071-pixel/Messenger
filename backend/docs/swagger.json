@@ -1,0 +1,97 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "WhatsApp Clone Backend API",
+    "version": "2.0.0",
+    "description": "Complete backend API for a WhatsApp-style chat app: auth, users, 1-to-1 & group messaging, receipts, reactions, and more."
+  },
+  "servers": [{ "url": "/api" }],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": { "type": "http", "scheme": "bearer", "bearerFormat": "JWT" }
+    }
+  },
+  "security": [{ "bearerAuth": [] }],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": { "phoneNumber": "919999999999", "name": "Priya", "password": "secret123" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "User created, returns token + user" } }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login and receive a JWT",
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": { "phoneNumber": "919999999999", "password": "secret123" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Returns token + user" } }
+      }
+    },
+    "/users/me": {
+      "get": { "summary": "Get my profile", "responses": { "200": { "description": "OK" } } },
+      "put": { "summary": "Update my profile (name/avatar/about)", "responses": { "200": { "description": "OK" } } }
+    },
+    "/users": {
+      "get": { "summary": "List/search users (?search=)", "responses": { "200": { "description": "OK" } } }
+    },
+    "/users/block/{userId}": {
+      "post": { "summary": "Block a user", "responses": { "200": { "description": "OK" } } }
+    },
+    "/users/unblock/{userId}": {
+      "post": { "summary": "Unblock a user", "responses": { "200": { "description": "OK" } } }
+    },
+    "/chats": {
+      "get": { "summary": "Get combined chat list (direct + group) with last message & unread count", "responses": { "200": { "description": "OK" } } }
+    },
+    "/messages/send": {
+      "post": { "summary": "Send a 1-to-1 message (REST fallback to socket)", "responses": { "201": { "description": "Created" } } }
+    },
+    "/messages/{userId}": {
+      "get": { "summary": "Get paginated conversation (?page=&limit=)", "responses": { "200": { "description": "OK" } } }
+    },
+    "/messages/{userId}/search": {
+      "get": { "summary": "Search messages in a conversation (?q=)", "responses": { "200": { "description": "OK" } } }
+    },
+    "/messages/conversation/{userId}": {
+      "delete": { "summary": "Clear conversation for me", "responses": { "200": { "description": "OK" } } }
+    },
+    "/messages/{messageId}": {
+      "put": { "summary": "Edit a message", "responses": { "200": { "description": "OK" } } },
+      "delete": { "summary": "Delete a message (?mode=me|everyone)", "responses": { "200": { "description": "OK" } } }
+    },
+    "/messages/{messageId}/react": {
+      "post": { "summary": "React to a message with an emoji", "responses": { "200": { "description": "OK" } } }
+    },
+    "/groups": {
+      "post": { "summary": "Create a group", "responses": { "201": { "description": "Created" } } },
+      "get": { "summary": "List my groups", "responses": { "200": { "description": "OK" } } }
+    },
+    "/groups/{groupId}": {
+      "get": { "summary": "Get group details", "responses": { "200": { "description": "OK" } } }
+    },
+    "/groups/{groupId}/members": {
+      "put": { "summary": "Add/remove group members (admin only)", "responses": { "200": { "description": "OK" } } }
+    },
+    "/groups/{groupId}/leave": {
+      "delete": { "summary": "Leave a group", "responses": { "200": { "description": "OK" } } }
+    },
+    "/groups/{groupId}/messages": {
+      "post": { "summary": "Send a group message", "responses": { "201": { "description": "Created" } } },
+      "get": { "summary": "Get paginated group messages", "responses": { "200": { "description": "OK" } } }
+    }
+  }
+}
